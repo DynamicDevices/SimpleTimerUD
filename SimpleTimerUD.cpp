@@ -151,7 +151,7 @@ int SimpleTimerUD::setTimer(long d, timer_callback f, int n, void *userData) {
 
     delays[freeTimer] = d;
     callbacks[freeTimer] = f;
-    userData[freeTimer] = userData;
+    this->userData[freeTimer] = userData;
     maxNumRuns[freeTimer] = n;
     enabled[freeTimer] = true;
     prev_millis[freeTimer] = elapsed();
