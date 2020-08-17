@@ -23,5 +23,5 @@
     ],
     "frameworks": "arduino",
     "platforms": "atmelavr",
-    "version": "0.0.0-alpha+sha.b30890b8f7"
+    "version": "0.0.1"
 }
