@@ -1,7 +1,9 @@
 /*
- * SimpleTimer.h
+ * SimpleTimerUD.h
  *
- * SimpleTimer - A timer library for Arduino.
+ * SimpleTimerUD - A timer library for Arduino (now with
+ * userData)
+ * Author: ajlennon@dynamicdevices.co.uk
  * Author: mromani@ottotecnica.com
  * Copyright (c) 2010 OTTOTECNICA Italy
  *
@@ -25,8 +27,8 @@
  */
 
 
-#ifndef SIMPLETIMER_H
-#define SIMPLETIMER_H
+#ifndef SIMPLETIMERUD_H
+#define SIMPLETIMERUD_H
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
@@ -36,7 +38,7 @@
 
 typedef void (*timer_callback)(void *userData);
 
-class SimpleTimer {
+class SimpleTimerUD {
 
 public:
     // maximum number of timers
@@ -47,7 +49,7 @@ public:
     const static int RUN_ONCE = 1;
 
     // constructor
-    SimpleTimer();
+    SimpleTimerUD();
 
     // this function must be called inside loop()
     void run();

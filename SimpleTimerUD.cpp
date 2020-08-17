@@ -1,7 +1,9 @@
 /*
- * SimpleTimer.cpp
+ * SimpleTimerUD.cpp
  *
- * SimpleTimer - A timer library for Arduino.
+ * SimpleTimerUD - A timer library for Arduino. (now with
+ * userData in timer callback)
+ * Author: ajlennon@dynamicdevices.co.uk
  * Author: mromani@ottotecnica.com
  * Copyright (c) 2010 OTTOTECNICA Italy
  *
@@ -24,7 +26,7 @@
  */
 
 
-#include "SimpleTimer.h"
+#include "SimpleTimerUD.h"
 
 
 // Select time function:
@@ -32,7 +34,7 @@
 static inline unsigned long elapsed() { return millis(); }
 
 
-SimpleTimer::SimpleTimer() {
+SimpleTimerUD::SimpleTimerUD() {
     unsigned long current_millis = elapsed();
 
     for (int i = 0; i < MAX_TIMERS; i++) {
@@ -46,7 +48,7 @@ SimpleTimer::SimpleTimer() {
 }
 
 
-void SimpleTimer::run() {
+void SimpleTimerUD::run() {
     int i;
     unsigned long current_millis;
 
@@ -111,7 +113,7 @@ void SimpleTimer::run() {
 
 // find the first available slot
 // return -1 if none found
-int SimpleTimer::findFirstFreeSlot() {
+int SimpleTimerUD::findFirstFreeSlot() {
     int i;
 
     // all slots are used
@@ -131,11 +133,11 @@ int SimpleTimer::findFirstFreeSlot() {
 }
 
 
-int SimpleTimer::setTimer(long d, timer_callback f, int n) {
-    return SimpleTimer::setTimer(d, f, n, NULL);
+int SimpleTimerUD::setTimer(long d, timer_callback f, int n) {
+    return SimpleTimerUD::setTimer(d, f, n, NULL);
 }
 
-int SimpleTimer::setTimer(long d, timer_callback f, int n, void *userData) {
+int SimpleTimerUD::setTimer(long d, timer_callback f, int n, void *userData) {
     int freeTimer;
 
     freeTimer = findFirstFreeSlot();
@@ -160,24 +162,24 @@ int SimpleTimer::setTimer(long d, timer_callback f, int n, void *userData) {
 }
 
 
-int SimpleTimer::setInterval(long d, timer_callback f) {
+int SimpleTimerUD::setInterval(long d, timer_callback f) {
     return setInterval(d, f, NULL);
 }
 
-int SimpleTimer::setInterval(long d, timer_callback f, void *userData) {
+int SimpleTimerUD::setInterval(long d, timer_callback f, void *userData) {
     return setTimer(d, f, RUN_FOREVER, userData);
 }
 
-int SimpleTimer::setTimeout(long d, timer_callback f) {
+int SimpleTimerUD::setTimeout(long d, timer_callback f) {
     return setTimeout(d, f, NULL);
 }
 
-int SimpleTimer::setTimeout(long d, timer_callback f, void *userData) {
+int SimpleTimerUD::setTimeout(long d, timer_callback f, void *userData) {
     return setTimer(d, f, RUN_ONCE, userData);
 }
 
 
-void SimpleTimer::deleteTimer(int timerId) {
+void SimpleTimerUD::deleteTimer(int timerId) {
     if (timerId >= MAX_TIMERS) {
         return;
     }
@@ -203,7 +205,7 @@ void SimpleTimer::deleteTimer(int timerId) {
 
 
 // function contributed by code@rowansimms.com
-void SimpleTimer::restartTimer(int numTimer) {
+void SimpleTimerUD::restartTimer(int numTimer) {
     if (numTimer >= MAX_TIMERS) {
         return;
     }
@@ -212,7 +214,7 @@ void SimpleTimer::restartTimer(int numTimer) {
 }
 
 
-boolean SimpleTimer::isEnabled(int numTimer) {
+boolean SimpleTimerUD::isEnabled(int numTimer) {
     if (numTimer >= MAX_TIMERS) {
         return false;
     }
@@ -221,7 +223,7 @@ boolean SimpleTimer::isEnabled(int numTimer) {
 }
 
 
-void SimpleTimer::enable(int numTimer) {
+void SimpleTimerUD::enable(int numTimer) {
     if (numTimer >= MAX_TIMERS) {
         return;
     }
@@ -230,7 +232,7 @@ void SimpleTimer::enable(int numTimer) {
 }
 
 
-void SimpleTimer::disable(int numTimer) {
+void SimpleTimerUD::disable(int numTimer) {
     if (numTimer >= MAX_TIMERS) {
         return;
     }
@@ -239,7 +241,7 @@ void SimpleTimer::disable(int numTimer) {
 }
 
 
-void SimpleTimer::toggle(int numTimer) {
+void SimpleTimerUD::toggle(int numTimer) {
     if (numTimer >= MAX_TIMERS) {
         return;
     }
@@ -248,6 +250,6 @@ void SimpleTimer::toggle(int numTimer) {
 }
 
 
-int SimpleTimer::getNumTimers() {
+int SimpleTimerUD::getNumTimers() {
     return numTimers;
 }
